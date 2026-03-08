@@ -12,6 +12,7 @@ Run with:
 """
 
 import json
+import os
 import uvicorn
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
@@ -327,8 +328,9 @@ async def serve_ui():
 # ──────────────────────────────────────────────
 
 if __name__ == "__main__":
+    port = int(os.getenv("PORT", 8000))
     print("\n=== Introduction to AI Agents ===")
     print(f"Pattern: {PATTERN_REGISTRY[current_pattern]['name']}")
     print(f"Model: {nodes.current_model}")
-    print("Open http://localhost:8000 in your browser\n")
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    print(f"Open http://localhost:{port} in your browser\n")
+    uvicorn.run(app, host="0.0.0.0", port=port)
