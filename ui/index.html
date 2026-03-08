@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Introduction to AI Agents</title>
+    <link rel="stylesheet" href="/ui/style.css" />
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <h1>Introduction to AI Agents</h1>
+        <p class="subtitle">Visualizing how different agent graph patterns execute using LangGraph</p>
+    </header>
+
+    <main>
+        <!-- Pattern Selector -->
+        <section class="pattern-section">
+            <label for="pattern-select">Agent Pattern:</label>
+            <select id="pattern-select" onchange="changePattern(this.value)">
+                <option>Loading...</option>
+            </select>
+            <span class="pattern-badge" id="pattern-badge">--</span>
+        </section>
+        <p class="pattern-description" id="pattern-description"></p>
+
+        <!-- Model Selector -->
+        <section class="model-section">
+            <label for="model-select">LLM Model:</label>
+            <select id="model-select" onchange="changeModel(this.value)">
+                <option>Loading models...</option>
+            </select>
+            <span class="model-badge" id="model-badge">--</span>
+            <button class="tune-toggle-btn" id="tune-toggle" onclick="toggleTuning()">Fine-Tuning</button>
+        </section>
+
+        <!-- Model Fine-Tuning Panel -->
+        <section class="tuning-section" id="tuning-section">
+            <h2>Model Fine-Tuning</h2>
+
+            <div class="tune-row">
+                <div class="tune-header">
+                    <label for="tune-temperature">Temperature</label>
+                    <span class="tune-value" id="val-temperature">0.7</span>
+                </div>
+                <input type="range" id="tune-temperature" min="0" max="2" step="0.1" value="0.7"
+                    oninput="updateSlider('temperature', this.value)" />
+                <span class="tune-hint">Creativity: 0 = focused, 1 = balanced, 2 = wild</span>
+            </div>
+
+            <div class="tune-row">
+                <div class="tune-header">
+                    <label for="tune-max-tokens">Max Tokens</label>
+                    <span class="tune-value" id="val-max_tokens">300</span>
+                </div>
+                <input type="range" id="tune-max-tokens" min="50" max="1000" step="50" value="300"
+                    oninput="updateSlider('max_tokens', this.value)" />
+                <span class="tune-hint">Response length: 100 = short, 300 = medium, 1000 = detailed</span>
+            </div>
+
+            <div class="tune-row">
+                <div class="tune-header">
+                    <label for="tune-top-p">Top P</label>
+                    <span class="tune-value" id="val-top_p">0.9</span>
+                </div>
+                <input type="range" id="tune-top-p" min="0.1" max="1" step="0.05" value="0.9"
+                    oninput="updateSlider('top_p', this.value)" />
+                <span class="tune-hint">Token diversity: 0.1 = narrow, 0.9 = natural, 1.0 = all</span>
+            </div>
+
+            <div class="tune-row">
+                <div class="tune-header">
+                    <label for="tune-freq">Frequency Penalty</label>
+                    <span class="tune-value" id="val-frequency_penalty">0.3</span>
+                </div>
+                <input type="range" id="tune-freq" min="0" max="2" step="0.1" value="0.3"
+                    oninput="updateSlider('frequency_penalty', this.value)" />
+                <span class="tune-hint">Reduces repetition: 0 = none, 0.3 = mild, 1+ = strong</span>
+            </div>
+
+            <div class="tune-row">
+                <div class="tune-header">
+                    <label for="tune-pres">Presence Penalty</label>
+                    <span class="tune-value" id="val-presence_penalty">0.2</span>
+                </div>
+                <input type="range" id="tune-pres" min="0" max="2" step="0.1" value="0.2"
+                    oninput="updateSlider('presence_penalty', this.value)" />
+                <span class="tune-hint">New topics: 0 = stay on topic, 0.5 = explore, 1+ = wander</span>
+            </div>
+
+            <div class="tune-presets">
+                <span class="tune-hint">Presets:</span>
+                <button class="preset-btn" onclick="applyPreset('precise')">Precise</button>
+                <button class="preset-btn" onclick="applyPreset('balanced')">Balanced</button>
+                <button class="preset-btn" onclick="applyPreset('creative')">Creative</button>
+            </div>
+        </section>
+
+        <!-- Input Section -->
+        <section class="input-section">
+            <label for="prompt">Enter your prompt:</label>
+            <div class="input-row">
+                <input
+                    type="text"
+                    id="prompt"
+                    placeholder="e.g. What are AI agents?"
+                    autocomplete="off"
+                />
+                <button id="run-btn" onclick="runAgent()">Run Agent</button>
+            </div>
+            <div class="example-questions">
+                <span class="examples-label">Try asking:</span>
+                <button class="example-btn" onclick="setPrompt('What are AI agents?')">AI Agents</button>
+                <button class="example-btn" onclick="setPrompt('What is LangGraph?')">LangGraph</button>
+                <button class="example-btn" onclick="setPrompt('Explain the ReAct pattern')">ReAct Pattern</button>
+                <button class="example-btn" onclick="setPrompt('What is an LLM?')">LLMs</button>
+                <button class="example-btn" onclick="setPrompt('What is prompt engineering?')">Prompt Engineering</button>
+                <button class="example-btn" onclick="setPrompt('Explain RAG')">RAG</button>
+                <button class="example-btn" onclick="setPrompt('What is tool use in AI?')">Tool Use</button>
+                <button class="example-btn" onclick="setPrompt('What is machine learning?')">Machine Learning</button>
+            </div>
+        </section>
+
+        <!-- Graph Visualization (dynamically rendered) -->
+        <section class="graph-section">
+            <h2>Agent Graph Flow</h2>
+            <div class="graph" id="graph-container">
+                <!-- Rendered dynamically by script.js -->
+            </div>
+        </section>
+
+        <!-- Output Section -->
+        <section class="output-section" id="output-section">
+            <h2>Execution Log</h2>
+            <div id="output-log"></div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-watermark">
+            <span class="watermark-name">Nisarg Kadam</span>
+            <span class="watermark-divider">&bull;</span>
+            <span class="watermark-role">Senior AI Engineer</span>
+        </div>
+        <p>Built for the AI Masterclass &mdash; Powered by LangGraph + FastAPI</p>
+        <p class="footer-links">
+            <a href="https://github.com/NisargKadam" target="_blank">GitHub</a>
+            <span>&bull;</span>
+            <a href="https://cognithic.com" target="_blank">Cognithic</a>
+        </p>
+    </footer>
+
+    <script src="/ui/script.js"></script>
+</body>
+</html>

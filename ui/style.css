@@ -1,0 +1,700 @@
+/* ============================================
+   style.css - UI Styling for Multi-Pattern Agent Demo
+   ============================================ */
+
+/* ─── Reset & Base ─── */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+    background: #0f1117;
+    color: #e0e0e0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ─── Header ─── */
+header {
+    text-align: center;
+    padding: 2rem 1rem 1rem;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    border-bottom: 2px solid #00d2ff33;
+}
+
+header h1 {
+    font-size: 2rem;
+    color: #00d2ff;
+    letter-spacing: 1px;
+}
+
+.subtitle {
+    margin-top: 0.4rem;
+    color: #8892b0;
+    font-size: 0.95rem;
+}
+
+/* ─── Main Layout ─── */
+main {
+    max-width: 850px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    flex: 1;
+}
+
+/* ─── Pattern Selector ─── */
+.pattern-section {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+    padding: 0.75rem 1rem;
+    background: #1a1a2e;
+    border: 1px solid #7c3aed44;
+    border-radius: 8px;
+}
+
+.pattern-section label {
+    font-weight: 600;
+    color: #ccd6f6;
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+
+#pattern-select {
+    padding: 0.45rem 0.75rem;
+    font-size: 0.9rem;
+    border: 2px solid #7c3aed44;
+    border-radius: 6px;
+    background: #0f1117;
+    color: #e0e0e0;
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.2s;
+}
+
+#pattern-select:hover,
+#pattern-select:focus {
+    border-color: #7c3aed;
+}
+
+.pattern-badge {
+    padding: 0.25rem 0.65rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 20px;
+    background: #7c3aed22;
+    color: #a78bfa;
+    border: 1px solid #7c3aed44;
+}
+
+.pattern-description {
+    color: #8892b0;
+    font-size: 0.85rem;
+    margin-bottom: 1.25rem;
+    padding: 0 0.25rem;
+}
+
+/* ─── Model Selector ─── */
+.model-section {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+    padding: 0.75rem 1rem;
+    background: #1a1a2e;
+    border: 1px solid #233554;
+    border-radius: 8px;
+}
+
+.model-section label {
+    font-weight: 600;
+    color: #ccd6f6;
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+
+#model-select {
+    padding: 0.45rem 0.75rem;
+    font-size: 0.9rem;
+    border: 2px solid #233554;
+    border-radius: 6px;
+    background: #0f1117;
+    color: #e0e0e0;
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.2s;
+}
+
+#model-select:hover,
+#model-select:focus {
+    border-color: #00d2ff;
+}
+
+.model-badge {
+    padding: 0.25rem 0.65rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 20px;
+    background: #00d2ff22;
+    color: #00d2ff;
+    border: 1px solid #00d2ff44;
+}
+
+.tune-toggle-btn {
+    margin-left: auto;
+    padding: 0.35rem 0.85rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    border: 1px solid #ffc10744;
+    border-radius: 6px;
+    background: #ffc10711;
+    color: #ffc107;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.tune-toggle-btn:hover {
+    background: #ffc10722;
+    border-color: #ffc107;
+}
+
+.tune-toggle-btn.active {
+    background: #ffc10733;
+    border-color: #ffc107;
+}
+
+/* ─── Fine-Tuning Panel ─── */
+.tuning-section {
+    display: none;
+    margin-bottom: 1.5rem;
+    padding: 1.25rem;
+    background: #1a1a2e;
+    border: 1px solid #ffc10733;
+    border-radius: 10px;
+    animation: slideIn 0.3s ease;
+}
+
+.tuning-section.visible {
+    display: block;
+}
+
+.tuning-section h2 {
+    font-size: 1rem;
+    color: #ffc107;
+    margin-bottom: 1rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid #ffc10722;
+}
+
+.tune-row {
+    margin-bottom: 1rem;
+}
+
+.tune-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.3rem;
+}
+
+.tune-header label {
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: #ccd6f6;
+}
+
+.tune-value {
+    font-family: "Consolas", "Courier New", monospace;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #ffc107;
+    background: #ffc10715;
+    padding: 0.1rem 0.5rem;
+    border-radius: 4px;
+    min-width: 3rem;
+    text-align: center;
+}
+
+.tune-row input[type="range"] {
+    width: 100%;
+    height: 6px;
+    border-radius: 3px;
+    background: #233554;
+    outline: none;
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.tune-row input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #ffc107;
+    border: 2px solid #0f1117;
+    cursor: pointer;
+    box-shadow: 0 0 6px #ffc10744;
+}
+
+.tune-row input[type="range"]::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #ffc107;
+    border: 2px solid #0f1117;
+    cursor: pointer;
+}
+
+.tune-hint {
+    display: block;
+    font-size: 0.7rem;
+    color: #556677;
+    margin-top: 0.2rem;
+}
+
+.tune-presets {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    margin-top: 0.5rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid #233554;
+}
+
+.preset-btn {
+    padding: 0.35rem 0.9rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    border: 1px solid #233554;
+    border-radius: 20px;
+    background: transparent;
+    color: #8892b0;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.preset-btn:hover {
+    border-color: #ffc107;
+    color: #ffc107;
+    background: #ffc10711;
+}
+
+/* ─── Input Section ─── */
+.input-section {
+    margin-bottom: 2rem;
+}
+
+.input-section label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #ccd6f6;
+}
+
+.input-row {
+    display: flex;
+    gap: 0.75rem;
+}
+
+#prompt {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    border: 2px solid #233554;
+    border-radius: 8px;
+    background: #1a1a2e;
+    color: #e0e0e0;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+#prompt:focus {
+    border-color: #00d2ff;
+}
+
+#run-btn {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    background: #00d2ff;
+    color: #0f1117;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+}
+
+#run-btn:hover {
+    background: #00b4d8;
+}
+
+#run-btn:active {
+    transform: scale(0.97);
+}
+
+#run-btn:disabled {
+    background: #233554;
+    color: #556677;
+    cursor: not-allowed;
+}
+
+/* ─── Example Questions ─── */
+.example-questions {
+    margin-top: 0.75rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    align-items: center;
+}
+
+.examples-label {
+    font-size: 0.8rem;
+    color: #556677;
+    margin-right: 0.25rem;
+}
+
+.example-btn {
+    padding: 0.3rem 0.7rem;
+    font-size: 0.8rem;
+    border: 1px solid #233554;
+    border-radius: 20px;
+    background: transparent;
+    color: #8892b0;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.example-btn:hover {
+    border-color: #00d2ff;
+    color: #00d2ff;
+    background: #0d213722;
+}
+
+/* ─── Graph Section ─── */
+.graph-section {
+    margin-bottom: 2rem;
+}
+
+.graph-section h2,
+.output-section h2 {
+    font-size: 1.1rem;
+    color: #ccd6f6;
+    margin-bottom: 1rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid #233554;
+}
+
+.graph {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+}
+
+/* ─── Node Boxes ─── */
+.node-box {
+    width: 260px;
+    padding: 0.9rem 1.2rem;
+    border: 2px solid #233554;
+    border-radius: 10px;
+    background: #1a1a2e;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.node-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #233554;
+    color: #8892b0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+}
+
+.node-label {
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.node-status {
+    margin-left: auto;
+    font-size: 0.75rem;
+    color: #8892b0;
+}
+
+.arrow {
+    font-size: 1.4rem;
+    color: #233554;
+    line-height: 1;
+    padding: 0.15rem 0;
+}
+
+.arrow-label {
+    font-size: 0.7rem;
+    color: #00e676;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin-top: -0.3rem;
+    margin-bottom: 0.2rem;
+}
+
+.node-end {
+    justify-content: center;
+    width: 120px;
+    border-style: dashed;
+}
+
+/* ─── Node States ─── */
+
+.node-box.active {
+    border-color: #00d2ff;
+    background: #0d2137;
+    box-shadow: 0 0 16px #00d2ff33;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+.node-box.active .node-icon {
+    background: #00d2ff;
+    color: #0f1117;
+}
+
+.node-box.active .arrow {
+    color: #00d2ff;
+}
+
+.node-box.completed {
+    border-color: #00e676;
+    background: #0d2119;
+}
+
+.node-box.completed .node-icon {
+    background: #00e676;
+    color: #0f1117;
+}
+
+.node-box.completed .node-status {
+    color: #00e676;
+}
+
+/* Dimmed: unchosen branch in branching pattern */
+.node-box.dimmed {
+    opacity: 0.3;
+    border-color: #233554;
+    background: #12131a;
+}
+
+@keyframes pulse {
+    0%, 100% { box-shadow: 0 0 8px #00d2ff22; }
+    50%      { box-shadow: 0 0 20px #00d2ff55; }
+}
+
+/* ─── Branching Layout ─── */
+.branch-label,
+.parallel-label {
+    font-size: 0.75rem;
+    color: #7c3aed;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin: 0.4rem 0;
+}
+
+.parallel-label {
+    color: #f59e0b;
+}
+
+.branch-row,
+.parallel-row {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+    margin: 0.3rem 0;
+}
+
+.branch-row .node-box,
+.parallel-row .node-box {
+    width: 200px;
+    font-size: 0.9rem;
+}
+
+.branch-row .node-box .node-label,
+.parallel-row .node-box .node-label {
+    font-size: 0.85rem;
+}
+
+/* ─── Loop Layout ─── */
+.loop-container {
+    position: relative;
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    margin: 0.3rem 0;
+}
+
+.loop-nodes {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+}
+
+.loop-arrow {
+    position: relative;
+    width: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.loop-arrow-line {
+    width: 40px;
+    height: 100%;
+    border: 2px dashed #ff6b6b55;
+    border-left: none;
+    border-radius: 0 20px 20px 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.loop-arrow-label {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    font-size: 0.65rem;
+    color: #ff6b6b;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    position: relative;
+    z-index: 1;
+}
+
+/* ─── Output Section ─── */
+.output-section {
+    display: none;
+}
+
+.output-section.visible {
+    display: block;
+}
+
+#output-log {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.log-entry {
+    padding: 0.85rem 1rem;
+    border-radius: 8px;
+    background: #1a1a2e;
+    border-left: 4px solid #233554;
+    animation: slideIn 0.3s ease;
+}
+
+.log-entry.reason       { border-left-color: #00d2ff; }
+.log-entry.tool         { border-left-color: #ffc107; }
+.log-entry.response     { border-left-color: #00e676; }
+.log-entry.creative-log { border-left-color: #e879f9; }
+.log-entry.error        { border-left-color: #ff6b6b; }
+
+.log-entry .log-title {
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.35rem;
+}
+
+.log-entry.reason .log-title       { color: #00d2ff; }
+.log-entry.tool .log-title         { color: #ffc107; }
+.log-entry.response .log-title     { color: #00e676; }
+.log-entry.creative-log .log-title { color: #e879f9; }
+.log-entry.error .log-title        { color: #ff6b6b; }
+
+.log-entry .log-text {
+    color: #b0bec5;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    white-space: pre-wrap;
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Footer ─── */
+footer {
+    text-align: center;
+    padding: 1.5rem 1rem;
+    color: #556677;
+    font-size: 0.8rem;
+    border-top: 1px solid #233554;
+    background: linear-gradient(135deg, #0f1117 0%, #1a1a2e 100%);
+}
+
+.footer-watermark {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.watermark-name {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #00d2ff;
+    letter-spacing: 0.5px;
+}
+
+.watermark-divider {
+    color: #233554;
+}
+
+.watermark-role {
+    font-size: 0.85rem;
+    color: #8892b0;
+    font-weight: 500;
+}
+
+footer p {
+    margin-top: 0.3rem;
+}
+
+.footer-links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 0.4rem;
+}
+
+.footer-links a {
+    color: #7c3aed;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s;
+}
+
+.footer-links a:hover {
+    color: #a78bfa;
+}
